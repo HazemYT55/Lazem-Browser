@@ -1,0 +1,28 @@
+<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><link rel="stylesheet" href="ui.css"></head><body>
+<div id="tabs"></div>
+<div id="bar"><button class="i" id="back">→</button><button class="i" id="fwd">←</button><button class="i" id="rel">⟳</button><button class="i" id="home">⌂</button>
+<input id="url" placeholder="اكتب عنوان موقع أو ابحث" spellcheck="false"><button class="i" id="star">☆</button>
+<select id="eng"></select><button id="ad">حجب الإعلانات: <span id="cnt">0</span></button></div>
+<div id="bm"></div>
+<script>
+const $=id=>document.getElementById(id);let S=null,editing=false;
+$('back').onclick=()=>lz.send('back');$('fwd').onclick=()=>lz.send('forward');$('rel').onclick=()=>lz.send('reload');$('home').onclick=()=>lz.send('home');
+$('star').onclick=()=>lz.send('bookmark');
+$('url').onfocus=e=>{editing=true;e.target.select()};$('url').onblur=()=>editing=false;
+$('url').onkeydown=e=>{if(e.key==='Enter'){lz.send('go',e.target.value);e.target.blur()}};
+$('eng').onchange=e=>lz.send('set','engine',e.target.value);
+$('ad').onclick=()=>lz.send('set','adblock',!S.settings.adblock);
+addEventListener('keydown',e=>{if(e.ctrlKey&&e.key==='t')lz.send('new-tab');if(e.ctrlKey&&e.key==='w'&&S)lz.send('close-tab',S.active);if(e.ctrlKey&&e.key==='l'){$('url').focus()}if(e.key==='F5')lz.send('reload')});
+lz.onState(s=>{S=s;
+ $('tabs').innerHTML='';s.tabs.forEach(t=>{const d=document.createElement('div');d.className='tab'+(t.id===s.active?' on':'');
+  d.innerHTML='<span></span><b>×</b>';d.firstChild.textContent=t.title;d.onclick=()=>lz.send('switch-tab',t.id);d.lastChild.onclick=e=>{e.stopPropagation();lz.send('close-tab',t.id)};$('tabs').appendChild(d)});
+ const p=document.createElement('button');p.id='plus';p.textContent='+';p.onclick=()=>lz.send('new-tab');$('tabs').appendChild(p);
+ const a=s.tabs.find(t=>t.id===s.active);if(a&&!editing)$('url').value=a.url.startsWith('file:')?'':a.url;
+ $('back').disabled=!s.canBack;$('fwd').disabled=!s.canFwd;
+ if($('eng').options.length!==s.engines.length)$('eng').innerHTML=s.engines.map(e=>`<option>${e}</option>`).join('');
+ $('eng').value=s.settings.engine;$('ad').className=s.settings.adblock?'':'off';$('cnt').textContent=s.blockedCount;
+ $('star').textContent=a&&s.settings.bookmarks.some(b=>b.url===a.url)?'★':'☆';
+ $('bm').innerHTML='';s.settings.bookmarks.forEach(b=>{const x=document.createElement('a');x.textContent=b.name;x.onclick=()=>lz.send('go',b.url);$('bm').appendChild(x)});
+ $('bm').style.display=s.settings.bookmarks.length?'flex':'none';
+});
+</script></body></html>

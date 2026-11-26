@@ -1,0 +1,25 @@
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:26px;font-family:system-ui,Segoe UI,Tahoma,sans-serif;color:#fff;background:#0f172a center/cover no-repeat}
+h1{font-size:54px;margin:0;letter-spacing:1px;text-align:center}
+h1 small{display:block;font-size:15px;font-weight:400;color:#94a3b8;margin-top:6px}
+#q{width:min(620px,86vw);height:50px;border-radius:25px;border:0;padding:0 24px;font-size:18px;outline:0;background:rgba(255,255,255,.95);color:#111}
+#tiles{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;max-width:760px}
+.tile{position:relative;width:96px;padding:14px 6px;border-radius:14px;background:rgba(255,255,255,.12);text-align:center;cursor:pointer;font-size:13px;user-select:none}
+.tile:hover{background:rgba(255,255,255,.25)}
+.tile.over{outline:2px dashed #38bdf8;background:rgba(56,189,248,.25)}
+.tile.drag{opacity:.4}
+.tile i{display:block;font-style:normal;font-size:22px;font-weight:700;margin:0 auto 8px;width:46px;height:46px;line-height:46px;border-radius:50%;background:rgba(56,189,248,.35)}
+.tile.folder i{border-radius:12px;background:rgba(250,204,21,.4)}
+.tile span{display:block;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.tile b{display:none;position:absolute;top:2px;left:4px;font-weight:400;font-size:14px;padding:0 5px;border-radius:6px;background:rgba(0,0,0,.45)}
+.tile:hover b{display:block}
+#add{background:transparent;border:2px dashed rgba(255,255,255,.3)}
+#folderview{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;align-items:center;justify-content:center}
+#fbox{background:#1e293b;border-radius:18px;padding:20px;min-width:340px;max-width:560px}
+#fbox h3{margin:0 0 14px;text-align:center}
+#fitems{display:flex;gap:14px;flex-wrap:wrap;justify-content:center}
+#fclose{display:block;margin:16px auto 0}
+#cust{position:fixed;bottom:14px;left:14px;display:flex;gap:8px;align-items:center;font-size:13px;background:rgba(0,0,0,.35);padding:8px 12px;border-radius:12px}
+#cust input[type=text]{width:200px;direction:ltr}
+#hint{font-size:12px;color:#94a3b8}
+#addrow{display:none;gap:8px}#addrow input{height:34px;width:260px;border-radius:17px;border:0;padding:0 14px}
