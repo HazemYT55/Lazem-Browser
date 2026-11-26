@@ -1,2 +1,0 @@
-{ "name": "lazem-browser", "version": "0.1.0", "description": "Lazem Browser", "main": "main.js",
-  "scripts": { "start": "electron ." }, "devDependencies": { "electron": "^45.5.0" } }
